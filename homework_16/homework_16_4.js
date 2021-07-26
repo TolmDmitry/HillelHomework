@@ -6,7 +6,7 @@
 диагонали матрицы.
 */
 
-let number = prompt('Enter number of strins in tabel')
+let number = prompt('Enter number of strings in table')
 function makeMatrixFunction(number) {
     let table = document.querySelector('#matrix');
     for (let i = 1; i <= number; i++) {
