@@ -12,37 +12,35 @@
 Ожидаемый результат прикреплен внизу.
 */
 
-const createEl = (id, value, tag = 'input', _class = 'input-item') => {
-    const el = document.createElement(tag)
-    el.id = id
-    el.value = value;
-    el.className = _class
-    return el
-}
-
-let inputs = document.querySelector('.button');
-let numInputs = +prompt('Enter number');
-for (let i = 0; numInputs > i; i++) {
-    if (i % 2 === 0) {
-        let inp = createEl("input" + i, 'input ' + (i + 1));
-        inputs.append(inp);
-    } else {
-        if (i + 1 % 2 === 0) {
-            let inp = createEl("input" + i, 'some text');
-            inp.nodeValue = 'some text';
-            inputs.append(inp);
-            inp.classList.remove();
-        }
-        let inp = createEl("input" + i, 'input ' + (i + 1));
-        inp.classList.add('odd-inputs');
-        inputs.append(inp);
-    }
-
+const createEl = (id, value, tag = "input", _class = "input-item") => {
+  const el = document.createElement(tag);
+  el.id = id;
+  el.value = value;
+  el.className = _class;
+  return el;
 };
 
+let inputs = document.querySelector(".button");
+let numInputs = +prompt("Enter number");
+for (let i = 0; numInputs > i; i++) {
+  if (i % 2 === 0) {
+    let inp = createEl("input" + i, "Input " + (i + 1));
+    inputs.before(inp);
+    inp.classList.add('odd-inputs')
+    if ((i + 1) % 3 === 0) {
+      inp.placeholder = 'some text';
+      inp.value = '';
+    }
+  } else {
+    let inp = createEl("input" + i, 'Input ' + (i + 1));
+    inputs.before(inp);
+    if ((i + 1) % 3 === 0) {
+      inp.placeholder = 'some text';
+      inp.value = '';
+    }
+  };
+};
+let listInputs = document.body.querySelectorAll('input');
+console.log(listInputs)
 let lastInput = document.getElementById(`input${numInputs - 1}`);
-lastInput.classList.add('margin-zero');
-let button = document.body.querySelector('input');
-console.log(button);
-button.append(inputs);
-
+lastInput.classList.add("margin-zero");
