@@ -23,23 +23,18 @@ const createEl = (id, value, tag = "input", _class = "input-item") => {
 let inputs = document.querySelector(".button");
 let numInputs = +prompt("Enter number");
 for (let i = 0; numInputs > i; i++) {
-  if (i % 2 === 0) {
-    let inp = createEl("input" + i, "Input " + (i + 1));
-    inputs.before(inp);
-    inp.classList.add('odd-inputs')
-    if ((i + 1) % 3 === 0) {
-      inp.placeholder = 'some text';
-      inp.value = '';
-    }
-  } else {
-    let inp = createEl("input" + i, 'Input ' + (i + 1));
-    inputs.before(inp);
-    if ((i + 1) % 3 === 0) {
-      inp.placeholder = 'some text';
-      inp.value = '';
-    }
-  };
+  let inp = createEl("input" + i, "Input " + (i + 1));
+  inputs.before(inp);
+
+  if (!(i % 2)) {
+    inp.classList.add('odd-inputs');
+  }
+  if (!((i + 1) % 3)) {
+    inp.placeholder = 'some text';
+    inp.value = '';
+  }
 };
+
 let listInputs = document.body.querySelectorAll('input');
 console.log(listInputs)
 let lastInput = document.getElementById(`input${numInputs - 1}`);
