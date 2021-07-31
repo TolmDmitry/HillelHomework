@@ -10,7 +10,7 @@ function createList() {
     list.addEventListener('click', function (event) {
         const ol = document.createElement('ol');
         let listIngredients = INGREDIENTS[event.target.textContent];
-        if (listIngredients !== undefined) {
+        if (listIngredients) {
             listIngredients.forEach(ingredient => {
                 const li = document.createElement('li');
                 const text = document.createTextNode(ingredient);
