@@ -3,14 +3,11 @@ const startButton = document.querySelector('.start');
 const stopButton = document.querySelector('.stop');
 
 const ctx = canvas.getContext('2d');
-// var y = canvas.height - 480;
-// let x = Math.random() * 1000;
 var dy = getRandomSpeed();
 let rectSize = 20;
 let rectColor = RandColor();
-var rectArray = [];
-x = getRandomInt(0, 640);
-y = getRandomInt(0, 480);
+let x = getRandomInt(0, 640);
+let y = 0;
 
 function getRandomSpeed() {
 	return Math.random() * 0.1;
@@ -23,6 +20,7 @@ function RandColor() {
 	}
 	return color;
 };
+// 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
@@ -30,29 +28,48 @@ function getRandomInt(min, max) {
 };
 
 function animate() {
-	function drawRect() {
+
+	function draw() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		updateRect();
+		y += dy;
+	}
+
+	let rectArray = [];
+	for (let i = 0; i < 2; ++i) {
+		let newRect = {
+			color: RandColor(),
+			xPos: getRandomInt(0, 640),
+			yPos: y,
+		}
+		rectArray.push(newRect);
+		console.log(rectArray);
+	}
+	function updateRect() {
+		rectArray.forEach(rect => {
+			drawRect(rect.xPos, rect.yPos, rect.color)
+		})
+	}
+	function drawRect(x, y, color) {
+		ctx.fillStyle = color;
 		ctx.beginPath();
 		ctx.fillRect(x, y, 20, 20);
-		ctx.fillStyle = rectColor;
 		ctx.fill();
 		ctx.closePath();
 	}
-	function draw() {
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		drawRect();
-		y += dy;
-		if (y + dy > canvas.height - rectSize) {
-			clearInterval(interval); // Needed for Chrome to end game
-		}
-	}
-	var interval = setInterval(draw, 10);
 
+	if (y + dy > canvas.height - rectSize) {
+		clearInterval(interval);
+	}
+	var interval = setInterval(updateRect, 10);
 	stopButton.addEventListener('click', e => {
 		clearInterval(interval);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	});
+	setInterval(draw, 10)
 	requestAnimationFrame(animate);
-};
+}
+
 
 
 
