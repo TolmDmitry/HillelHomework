@@ -3,9 +3,8 @@ const startButton = document.querySelector(".start");
 const stopButton = document.querySelector(".stop");
 const scoreId = document.getElementById('score');
 const ctx = canvas.getContext("2d");
-let x = getRandomInt(0, 640);
-let y = 0;
 let score = 0;
+let interval;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -13,21 +12,17 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function RandColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
+function randColor() {
+  let letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
 };
 
-function getRandomSpeed() {
-  return Math.random() * 1.5;
-};
-
 function drawScore() {
-  document.getElementById('score').textContent = `${score}`;
+  document.getElementById('score').textContent = score;
 };
 
 function animate() {
@@ -55,13 +50,13 @@ function animate() {
 };
 
 startButton.addEventListener("click", () => {
-  var interval = setInterval(animate, 100);
-  stopButton.addEventListener("click", () => {
-    score = 0;
-    clearInterval(interval);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    document.location.reload();
-  });
+  interval = setInterval(animate, getRandomInt(0,100));
+});
+stopButton.addEventListener("click", () => {
+  score = 0;
+  clearInterval(interval);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  document.location.reload();
 });
 
 canvas.addEventListener("click", (e) => {
@@ -82,12 +77,12 @@ canvas.addEventListener("click", (e) => {
 let rectArray = [];
 for (let i = 0; i < 30; ++i) {
   let newRect = {
-    color: RandColor(),
+    color: randColor(),
     xPos: getRandomInt(0, 640),
     yPos: -30,
     width: 20,
     height: 20,
-    speed: getRandomSpeed(),
+    speed: getRandomInt(0.3, 0.8),
   };
   rectArray.push(newRect);
 }
