@@ -5,11 +5,13 @@ const scoreId = document.getElementById('score');
 const ctx = canvas.getContext("2d");
 let score = 0;
 let interval;
+let rectArray = [];
 
-function getRandomInt(min, max) {
+
+function getRandom(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.random() * (max - min) + min;
 }
 
 function randColor() {
@@ -25,16 +27,33 @@ function drawScore() {
   document.getElementById('score').textContent = score;
 };
 
+startButton.addEventListener("click", () => {
+  interval = setInterval(() => {
+    let newRect = {
+      color: randColor(),
+      xPos: Math.floor(getRandom(0, 640)),
+      yPos: -30,
+      width: 20,
+      height: 20,
+      speed: getRandom(3, 8) * 0.1,
+    };
+    rectArray.push(newRect);
+  }, getRandom(200, 2000));
+});
+
 function animate() {
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    updateRect();
-    drawScore();
-  };
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  updateRect();
+  drawScore();
 
   function updateRect() {
-    rectArray.forEach((rect) => {
+    rectArray.forEach((rect, index) => {
       drawRect(rect.xPos, rect.yPos, rect.color, rect.height, rect.width);
+      if (rect.yPos > canvas.height) {
+        console.log(rectArray.splice(index, 1));
+      }
+      console.log(rectArray)
       rect.yPos += rect.speed;
     });
   };
@@ -46,12 +65,9 @@ function animate() {
     ctx.fill();
     ctx.closePath();
   };
-  requestAnimationFrame(draw);
+  requestAnimationFrame(animate);
 };
 
-startButton.addEventListener("click", () => {
-  interval = setInterval(animate, getRandomInt(0,100));
-});
 stopButton.addEventListener("click", () => {
   score = 0;
   clearInterval(interval);
@@ -69,22 +85,11 @@ canvas.addEventListener("click", (e) => {
     ) {
       rectArray.splice(index, 1);
       score++;
-      console.log(score)
     }
   });
 });
+document.body.onload = animate;
 
-let rectArray = [];
-for (let i = 0; i < 30; ++i) {
-  let newRect = {
-    color: randColor(),
-    xPos: getRandomInt(0, 640),
-    yPos: -30,
-    width: 20,
-    height: 20,
-    speed: getRandomInt(0.3, 0.8),
-  };
-  rectArray.push(newRect);
-}
+
 
 
