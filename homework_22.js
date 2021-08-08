@@ -15,26 +15,16 @@ function Student(name, surname, score) {
   this.firstName = name;
   this.lastName = surname;
   this.averageScore = score;
-  this.isGrantHolder = () => {
-    if (this.averageScore >= 4) {
-      return true;
-    } return false;
-  };
-  this.getFullName = () => {
-    console.log(this.firstName, this.lastName, this.isGrantHolder());
-  };
-};
+  this.isGrantHolder = () => this.averageScore >= 4;
+  this.getFullName = () => this.firstName + ' ' + this.lastName;
+}
 let student = new Student('Ivan', 'Ivanov', 4.8);
 
 function Aspirant(name, surname, score, topic, dissertationStatus) {
   Student.apply(this, [name, surname, score]);
   this.dissertationTopic = topic;
   this.isDissertationComplete = dissertationStatus;
-  this.isGrantHolder = () => {
-    if (this.averageScore >= 4.5 && this.isDissertationComplete === true) {
-      return true;
-    } return false;
-  }
+  this.isGrantHolder = () => this.averageScore >= 4.5 && this.isDissertationComplete;
 };
 
 let aspirant = new Aspirant('John', 'Smith', 4.8, 'someTopic', false,);
@@ -62,10 +52,10 @@ Cоздайте несколько объектов на основе класс
 */
 
 class Plane {
-  constructor(name) {
+  constructor(name, isFlying = false) {
     this.name = name;
+    this.isFlying = isFlying;
   }
-  isFlying = false;
   takeOff() {
     return this.isFlying = true;
   };
@@ -76,13 +66,7 @@ class Plane {
 let airport = {
   planes: [],
   getFlyingPlanes() {
-    let count = 0;
-    for (plane of this.planes) {
-      if (plane.isFlying) {
-        count++;
-      }
-    }
-    return `The number of planes departing from the airport: ${count}`;
+    return this.planes.filter(plane => plane.isFlying).length
   }
 }
 
