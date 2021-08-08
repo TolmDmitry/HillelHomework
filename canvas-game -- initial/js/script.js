@@ -31,8 +31,8 @@ startButton.addEventListener("click", () => {
   interval = setInterval(() => {
     let newRect = {
       color: randColor(),
-      xPos: Math.floor(getRandom(0, 640)),
-      yPos: -30,
+      xPos: Math.floor(getRandom(0, 640 - 20)),
+      yPos: -20,
       width: 20,
       height: 20,
       speed: getRandom(3, 8) * 0.1,
@@ -51,9 +51,8 @@ function animate() {
     rectArray.forEach((rect, index) => {
       drawRect(rect.xPos, rect.yPos, rect.color, rect.height, rect.width);
       if (rect.yPos > canvas.height) {
-        console.log(rectArray.splice(index, 1));
+        rectArray.splice(index, 1);
       }
-      console.log(rectArray)
       rect.yPos += rect.speed;
     });
   };
