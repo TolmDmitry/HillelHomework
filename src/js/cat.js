@@ -1,11 +1,8 @@
 import Animal from './animal';
 
-
 export default class Cat extends Animal {
-    constructor(nickname, food, location, isHomless = true) {
+    constructor(nickname, food, location, isHomeless = true) {
         super(nickname, food, location);
-        this.isHomless = isHomless;
-    }
-    changeFood() {
+        this.isHomeless = isHomeless;
     }
 }

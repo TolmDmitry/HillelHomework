@@ -4,6 +4,7 @@ export default class Animal {
         this.food = food;
         this.location = location;
     }
-    changeFood() {
+    changeFood(newFood = 'meal with rice') {
+        return this.food = newFood;
     }
 }

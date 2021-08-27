@@ -1,20 +1,22 @@
 export default class Hospital {
+    #illAnimals;
+    #findingPetsPeople;
     constructor(name) {
         this.name = name;
-        this.#illAnimals = [];
         this.#findingPetsPeople = [];
+        this.#illAnimals = [];
     }
     getAnimals() {
-        return this.#illAnimalsl;
+        return this.#illAnimals;
     }
     getFindingPetsPeople() {
         return this.#findingPetsPeople;
     }
     addAnimal(animal) {
-        this.#illAnimals.push(animal);
+        return this.#illAnimals.push(animal);
     }
     addPeople(person) {
-        this.#findingPetsPeople.push(person);
+        return this.#findingPetsPeople = this.#findingPetsPeople.concat(person);
     }
     findHome(animal) {
         if (this.#illAnimals.find(illAnimal => illAnimal.nickname === animal.nickname)) {
@@ -22,7 +24,6 @@ export default class Hospital {
                 status: 'restricted',
                 message: `We need to heal ${animal.nickname} firstly`,
             };
-
         } else {
             const randomPersonId = Math.floor(Math.random() * (this.#findingPetsPeople.length - 0) + 0);
             const person = this.#findingPetsPeople.splice(randomPersonId, 1)[0];
