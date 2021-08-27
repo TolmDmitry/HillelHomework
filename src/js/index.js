@@ -1,16 +1,30 @@
-import { time, logSomeData } from './text-export';
-import Student from './text-export-default';
+import Cat from './cat';
+import Dog from './dog';
+import Person from './person';
+import Veterinarian from './veterinarian';
+import Hospital from './hospital';
 
-const obj = {
-    width: 10,
-    height: 10,
-};
+let cat1 = new Cat('Bob', 'feed', 'location1', true);
+let cat2 = new Cat('Alina', 'meal with rice', 'location2', false);
+let cat3 = new Cat('Mur', 'feed', 'home', 'location3', false);
 
-console.log(obj);
-logSomeData(time);
+let dog1 = new Dog('Frank', 'feed', 'location4', 10);
+let dog2 = new Dog('Rex', 'meal with rice', 'location5', 25);
+let dog3 = new Dog('Muhtar', 'feed', 'home', 'location6', 4);
 
-let student1 = new Student('Bob', 'Marley', 99);
-let student2 = new Student('Alina', 'Malina', 18);
+let person1 = new Person('Stepan', 'Ivanov');
+let person2 = new Person('Ivan', 'Petrov');
+let person3 = new Person('Kolya', 'Sidorov');
 
-console.log(student1.getName());
-console.log(student2.getName());
+let hospital = new Hospital('Hospital 1');
+
+let veterinar = new Veterinarian('Nikolay', 'Popov', 'Hospital 1')
+
+function main() {
+
+}
+
+console.group(veterinar.getFullName());
+console.log(conclusion.info);
+console.log(conclusion.fullDiagnos);
+console.groupEnd();
