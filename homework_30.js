@@ -12,7 +12,7 @@ function makeCounter() {
       let time = new Date().getTime() / 1000;
       let intervalTime = time - counter;
       counter = time;
-      return `${Math.floor(intervalTime)} seconds have passed`;
+      return `${Math.round(intervalTime)} seconds have passed`;
     } else {
       counter = new Date().getTime() / 1000;
       return 'Enabled';
