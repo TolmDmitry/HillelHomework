@@ -18,31 +18,29 @@ class University {
     this.name = name;
   }
   addStudent(enrollee) {
-    enrollee.forEach(student => {
-      student.totalPoint = student.ratingPoint + student.schoolPoint;
-    })
-    enrollee.sort((a, b) => parseFloat(b.totalPoint) - parseFloat(a.totalPoint));
-    enrollee.map((student, index) => {
+    enrollee.totalPoint = enrollee.ratingPoint + enrollee.schoolPoint;
+    this.studentsArray.push(new Student(enrollee));
+    this.studentsArray.sort((a, b) => b.totalPoint - a.totalPoint);
+    this.studentsArray = this.studentsArray.map((student, index) => {
       if (index <= 4) {
         student.isSelfPayment = false;
-      }
-      this.studentsArray.push(new Student(student))
+      } else { student.isSelfPayment = true }
+      return student;
     })
   }
-
   getStudents() {
     return this.studentsArray
   }
   getIsSelfPaymentStudents() {
-    return this.studentsArray.filter(student => student.isSelfPayment === true)
+    return this.studentsArray.filter(student => student.isSelfPayment)
   }
   getBudgetStudents() {
-    return this.studentsArray.filter(student => student.isSelfPayment === false)
+    return this.studentsArray.filter(student => !student.isSelfPayment)
 
   }
 }
 let khpiUniversity = new University("NTU 'KhPI'")
-khpiUniversity.addStudent(students);
+students.forEach(student => khpiUniversity.addStudent(student))
 console.log('National Technical University – «Kharkiv Polytechnic Institute» :', khpiUniversity)
 console.log('Get all students:', khpiUniversity.getStudents())
 console.log('Students on budget education:', khpiUniversity.getBudgetStudents())
