@@ -95,52 +95,37 @@ const server = http.createServer(async (req, res) => {
                 console.log('Getting data...', chunk);
                 data += chunk;
             });
-            req.on('end', () => {
+            req.on('end', async () => {
                 console.log('Finished');
                 console.log(data);
                 const parsed = queryString.parse(data);
                 if (parsed.title) {
                     homework.title = parsed.title;
                 }
-
-                fs.writeFile(pathToHomeworkJSON, JSON.stringify(homeworks), 'utf-8', (err) => {
-                    if (err) {
-                        res.statusCode = 400;
-                        res.end();
-                    }
-
-                    fs.readFile(editHomeworksTemplatePath, 'utf-8', (err, template) => {
-                        if (err) {
-                            res.statusCode = 400;
-                            res.end();
-                        } else {
-                            const output = Mustache.render(template, {
-                                title: homework.title,
-                                _id: homework._id,
-                            });
-                            res.end(output);
-                        }
-                    });
-                });
-            });
-        }
-        // else if (req.method === 'GET' && req) {
-        //     const index = homeworks.findIndex(homework => homework.title === homework.title);
-        //     if (index !== undefined) homeworks.splice(index, 1);
-        //     res.end();
-        else {
-            fs.readFile(editHomeworksTemplatePath, 'utf-8', (err, template) => {
-                if (err) {
+                try {
+                    await writeFilePromise(pathToHomeworkJSON, JSON.stringify(homeworks))
+                    const template = await readFilePromise(homeworksTemplatePath, 'utf-8');
+                    const output = Mustache.render(template, { homeworks });
+                    res.end(output);
+                } catch (error) {
                     res.statusCode = 400;
                     res.end();
-                } else {
-                    const output = Mustache.render(template, {
-                        title: homework.title,
-                        _id: homework._id,
-                    });
-                    res.end(output);
                 }
             });
+        }
+
+        else {
+            try {
+                const template = await readFilePromise(editHomeworksTemplatePath, 'utf-8');
+                const output = Mustache.render(template, {
+                    title: homework.title,
+                    _id: homework._id,
+                });
+                res.end(output);
+            } catch (error) {
+                res.statusCode = 400;
+                res.end();
+            }
         }
 
     } else if (req.url.startsWith('/create-homework/')) {
@@ -153,19 +138,8 @@ const server = http.createServer(async (req, res) => {
             });
             req.on('end', async () => {
                 console.log('Finished');
-                console.log(data);
                 const parsed = queryString.parse(data);
-                console.log('p', parsed);
-
                 homeworks.push(parsed);
-                // await writeFilePromise(pathToHomeworkJSON, JSON.stringify(homeworks), 'utf-8', (err) => {
-
-                //     let template = await readFilePromise(createHomeworkTemplatePath, 'utf-8');
-                //     const output = Mustache.render(template);
-                //     res.end(output);
-
-                // }
-
                 await writeFilePromise(pathToHomeworkJSON, JSON.stringify(homeworks), 'utf-8', async (err) => {
                     if (err) {
                         console.log(err)
@@ -175,20 +149,6 @@ const server = http.createServer(async (req, res) => {
                     let template = await readFilePromise(createHomeworkTemplatePath, 'utf-8');
                     const output = Mustache.render(template, {});
                     res.end(output);
-
-                    // fs.readFile(createHomeworkTemplatePath, 'utf-8', (err, template) => {
-                    //     if (err) {
-                    //         res.statusCode = 400;
-                    //         res.end();
-                    //     } else {
-                    //         console.log(template)
-                    //         const output = Mustache.render(template, {
-                    //             title: homework.title,
-                    //             _id: homework._id,
-                    //         });
-                    //         res.end(output);
-                    //     }
-                    // });
                 });
             });
         } else {
