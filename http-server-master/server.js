@@ -152,6 +152,7 @@ const server = http.createServer(async (req, res) => {
                 console.log('Finished');
                 const parsed = queryString.parse(data);
                 parsed._id = str_rand();
+                console.log(parsed);
                 homeworks.push(parsed);
                 await writeFilePromise(pathToHomeworkJSON, JSON.stringify(homeworks), 'utf-8', async (err) => {
                     if (err) {
