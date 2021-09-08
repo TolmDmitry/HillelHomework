@@ -1,35 +1,24 @@
-import songsArr from "../script";
-import { useState } from "react";
-// import App from "../App";
+import like from "../style/like.svg";
 
-function SongItem(props) {
-  const [songs, setSong] = useState(songsArr);
-  // console.log(songs.isLiked);
-  // console.log(setSongs);
-
-  return (
-    <div className="song_item">
-      <div className="songs-wrapper">
-        <ul className="songs">
-          <button
-            className="like button"
-            onChange={(e) => console.log(e.target)}
-          >
+const SongItem = ({ song, deleteSong, likeSong }) => (
+  <div className="song_item">
+    <div className="songs-wrapper">
+      <ul className="songs">
+        <h2>{song.name}</h2>
+        <span>{song.author}</span>
+        <p>{song.releaseDate}</p>
+        {song.isLiked ? (
+          <img className="like-icon" src={like} alt="React Logo" />
+        ) : (
+          <button className="like button" onClick={() => likeSong(song.name)}>
             Like
           </button>
-          {/* <button className="delet button" onClick="">
-            
-          </button> */}
-
-          <button
-            className="delet button"
-            onClick={(e) => console.log(e.target)}
-          >
-            Delete
-          </button>
-        </ul>
-      </div>
+        )}
+        <button className="delet button" onClick={() => deleteSong(song.name)}>
+          Delete
+        </button>
+      </ul>
     </div>
-  );
-}
+  </div>
+);
 export default SongItem;

@@ -1,18 +1,30 @@
-// import { count } from "console";
-// import { useState } from "react";
-import App from "../App";
-import songs from "../script";
-// import App from "../App";
+import React, { useState } from "react";
 
-function Playlist() {
+const Playlist = ({ count, addNewSong }) => {
+  const [songName, setSongName] = useState("");
+  const handleAddSong = () => {
+    addNewSong(songName);
+    setSongName("");
+  };
   return (
     <div className="song_item">
-      <input className="input-box" type="text" placeholder="Song..." />
-      <input className="button add" type="button" value="Add new song" />
+      <input
+        className="input-box"
+        type="text"
+        value={songName}
+        onChange={(e) => setSongName(e.target.value)}
+        placeholder="Song..."
+      />
+      <input
+        className="button add"
+        type="button"
+        onClick={handleAddSong}
+        value="Add new song"
+      />
       <p className="count-title">
-        Count of songs: <span className="count"> {songs.length} </span>
+        Count of songs: <span className="count-title span"> {count} </span>
       </p>
     </div>
   );
-}
+};
 export default Playlist;
