@@ -25,6 +25,18 @@ const writeFilePromise = util.promisify(fs.writeFile);
 
 const PORT = 5000;
 
+function str_rand() {
+    let result = '';
+    let words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    let max_position = words.length - 1;
+    for (let i = 0; i < 23; ++i) {
+        let position = Math.floor(Math.random() * max_position);
+        result = result + words.substring(position, position + 1);
+    }
+    return result;
+}
+
+
 /**
  Create -- POST /homework
  Read   -- GET  /homework (/homework/:id)
@@ -139,6 +151,7 @@ const server = http.createServer(async (req, res) => {
             req.on('end', async () => {
                 console.log('Finished');
                 const parsed = queryString.parse(data);
+                parsed._id = str_rand();
                 homeworks.push(parsed);
                 await writeFilePromise(pathToHomeworkJSON, JSON.stringify(homeworks), 'utf-8', async (err) => {
                     if (err) {
