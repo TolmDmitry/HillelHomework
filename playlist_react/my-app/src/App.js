@@ -1,16 +1,30 @@
 import SongItem from "./components/Songitem";
-import { useState } from "react";
+import React, { useState } from "react";
 import './style/App.css';
-import songs from "./script";
+import songsArr from "./script";
 import Playlist from "./components/Playlist";
 
 function App() {
-  const [song, setSong] = useState({ songs })
+  const [songs, setSong] = useState(songsArr);
+
+  const addNewSong = (songName) => {
+    setSong([...songs, { name: songName, isLiked: false }])
+  }
+
+  const deleteSong = (songName) => {
+    const filteredSongs = songs.filter(song => song.name !== songName);
+    setSong(filteredSongs);
+  }
+
+  const likeSong = (songName) => {
+    const mappedSongs = songs.map(song => song.name === songName ? { ...song, isLiked: true } : song);
+    setSong(mappedSongs)
+  }
+
   return (
     <div className="App">
-      <Playlist songs={songs} />
-
-      <SongItem />
+      <Playlist count={songs.length} addNewSong={addNewSong} />
+      {songs.map(song => <SongItem song={song} deleteSong={deleteSong} key={song.name} likeSong={likeSong} />)}
     </div>
   )
 }

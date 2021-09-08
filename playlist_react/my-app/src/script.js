@@ -1,9 +1,38 @@
 let songs = [{
+  id: 1,
+  author: '',
+  releaseDate: '',
+  albumName: '',
   name: 'Jingle Bells',
   isLiked: false,
 }, {
-  name: 'We Wish You a Merry Christmas',
-  isLiked: true,
+  id: 2,
+  author: '',
+  releaseDate: '',
+  albumName: '',
+  name: 'Jingle Bells',
+  isLiked: false,
+}, {
+  id: 3,
+  author: '',
+  releaseDate: '',
+  albumName: '',
+  name: 'Jingle Bells',
+  isLiked: false,
+}, {
+  id: 4,
+  author: '',
+  releaseDate: '',
+  albumName: '',
+  name: 'Jingle Bells',
+  isLiked: false,
+}, {
+  id: 5,
+  author: '',
+  releaseDate: '',
+  albumName: '',
+  name: 'Jingle Bells',
+  isLiked: false,
 }];
 
 export default songs;
