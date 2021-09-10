@@ -1,4 +1,7 @@
+// import songs from "../script";
 import like from "../style/like.svg";
+import LikeButton from "./UI/LikeButton/LikeButton";
+import AddButton from "./UI/DeleteButton/AddButton/addButton";
 
 const SongItem = ({ song, deleteSong, likeSong }) => (
   <div className="song_item">
@@ -10,13 +13,19 @@ const SongItem = ({ song, deleteSong, likeSong }) => (
         {song.isLiked ? (
           <img className="like-icon" src={like} alt="React Logo" />
         ) : (
-          <button className="like button" onClick={() => likeSong(song.name)}>
-            Like
-          </button>
+          <LikeButton
+            likeSong={likeSong}
+            song={song}
+            customClassName="likeButton"
+          />
         )}
-        <button className="delet button" onClick={() => deleteSong(song.name)}>
+        <AddButton
+          customClassName="DeleteButton"
+          type="submit"
+          onClick={() => deleteSong(song.name)}
+        >
           Delete
-        </button>
+        </AddButton>
       </ul>
     </div>
   </div>
