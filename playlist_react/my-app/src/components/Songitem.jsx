@@ -11,18 +11,26 @@ const SongItem = ({ song, deleteSong, likeSong }) => (
         <span>{song.author}</span>
         <p>{song.releaseDate}</p>
         {song.isLiked ? (
-          <img className="like-icon" src={like} alt="React Logo" />
+          <LikeButton
+            likeSong={likeSong}
+            song={song}
+            customClassName="likeButton"
+            textContent={
+              <img className="like-icon" src={like} alt="React Logo" />
+            }
+          />
         ) : (
           <LikeButton
             likeSong={likeSong}
             song={song}
             customClassName="likeButton"
+            textContent="Like"
           />
         )}
         <AddButton
           customClassName="DeleteButton"
           type="submit"
-          onClick={() => deleteSong(song.name)}
+          onClick={() => deleteSong(song.id)}
         >
           Delete
         </AddButton>
