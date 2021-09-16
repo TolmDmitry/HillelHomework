@@ -1,5 +1,4 @@
-import SongItem from "./components/Songitem";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import './style/App.css';
 import songsArr from "./script";
 import Playlist from "./components/Playlist";
@@ -7,11 +6,19 @@ import NewSongModal from './components/UI/modal/AddNewSongModal';
 import AddButton from "./components/UI/DeleteButton/AddButton/addButton";
 import Counter from "./components/UI/Counter/Counter";
 import SongList from "./components/UI/SongList/SongList";
+import SongSearch from "./components/SongSearch";
+import SongSort from "./components/SongSort";
+
+export const SongContext = React.createContext();
 
 
 function App() {
   const [songs, setSong] = useState(songsArr);
   const [modal, setModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [orderBy, setOrderBy] = useState('');
+
+
 
   const generateId = () => {
     if (!songs.length) {
@@ -35,17 +42,28 @@ function App() {
     setSong(mappedSongs)
   }
 
+  const modifedArray = useMemo(() => {
+    return songs.filter(song => song.name.toLowerCase().startsWith(searchQuery.toLowerCase())).sort((a, b) => b[orderBy] - a[orderBy])
+  }, [searchQuery, orderBy, songs])
+
+
   return (
     <div className="App">
-      <AddButton type='submit'
-        customClassName='AddButton'
-        onClick={() => setModal(true)}
-      >Create new song</AddButton>
+      <div className='header'>
+        <AddButton type='submit'
+          customClassName='AddButton'
+          onClick={() => setModal(true)}
+        >Create new song</AddButton>
+        <SongSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <SongSort sortQuery={orderBy} setOrderBy={setOrderBy} />
+      </div>
       <Counter songs={songs} customClassName='counter' />
       <NewSongModal visible={modal} setVisible={setModal}>
         <Playlist addNewSong={addNewSong} generateId={generateId} />
       </NewSongModal>
-      <SongList songs={songs} deleteSong={deleteSong} likeSong={likeSong} />
+      <SongContext.Provider value={{ deleteSong, likeSong }}>
+        <SongList songs={modifedArray} />
+      </SongContext.Provider>
     </div >
   )
 }

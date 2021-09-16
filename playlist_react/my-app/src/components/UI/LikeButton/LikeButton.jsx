@@ -1,12 +1,9 @@
 import classes from "./LikeButton.module.css";
 
-function LikeButton({ likeSong, song, customClassName, textContent }) {
+function LikeButton({ likeSong, song, children }) {
   return (
-    <button
-      className={classes[customClassName]}
-      onClick={() => likeSong(song.id)}
-    >
-      {textContent}
+    <button className={classes.likeButton} onClick={() => likeSong(song.id)}>
+      {children}
     </button>
   );
 }
