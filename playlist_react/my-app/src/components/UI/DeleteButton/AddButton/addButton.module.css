@@ -1,0 +1,15 @@
+.AddButton {
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: violet;
+}
+.DeleteButton {
+  background-color: #a6e2f5;
+}
+button{
+  border: none;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  margin-left: 10px;
+}

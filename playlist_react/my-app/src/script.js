@@ -15,7 +15,7 @@ let songs = [{
   author: 'Ludwig van Beethoven',
   releaseDate: '1824',
   name: 'Symphony No. 9 in D Minor, Op. 125',
-  isLiked: false,
+  isLiked: true,
 }, {
   id: 4,
   author: 'Ludwig van Beethoven',
