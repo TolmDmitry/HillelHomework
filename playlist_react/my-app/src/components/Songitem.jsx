@@ -2,10 +2,12 @@ import like from "../style/like.svg";
 import LikeButton from "./UI/LikeButton/LikeButton";
 import AddButton from "./UI/DeleteButton/AddButton/addButton";
 import { useContext } from "react";
-import { SongContext } from "../App";
+import { SongContext } from "../context";
+import { useHistory } from "react-router-dom";
 
 function SongItem({ song }) {
   const { deleteSong, likeSong } = useContext(SongContext);
+  const history = useHistory();
   return (
     <div className="song_item">
       <div className="songs-wrapper">
@@ -26,6 +28,13 @@ function SongItem({ song }) {
             onClick={() => deleteSong(song.id)}
           >
             Delete
+          </AddButton>
+          <AddButton
+            customClassName="DeleteButton"
+            type="submit"
+            onClick={() => history.push(`/songs/${song.id}`)}
+          >
+            Info
           </AddButton>
         </ul>
       </div>
