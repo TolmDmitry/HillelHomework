@@ -9,7 +9,7 @@ function Login() {
     return email.length > 0 && password.length > 0;
   }
 
-  function HandleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     if (email === "email@google.com" && password === "1234567") {
       localStorage.setItem("isLogin", true);
