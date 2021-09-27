@@ -15,7 +15,7 @@ const Playlist = ({ addNewSong, generateId }) => {
 
     const newSong = {
       ...songName,
-      id: generateId(),
+      id: generateId,
     };
 
     addNewSong(newSong);

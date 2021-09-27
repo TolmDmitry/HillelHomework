@@ -70,3 +70,27 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.navbar {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: black;
+  background-color: aqua;
+  border: 2px solid rebeccapurple;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+}
+.songlist-wraper {
+  display: flex;
+  flex-direction: column;
+}
+.songlist-wraper.max {
+  flex: 1;
+}
