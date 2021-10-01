@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { YOUTUBE_URL, ACCESS_KEY } from '../constants';
+import { YOUTUBE_URL } from '../constants';
+import { ACCESS_KEY } from '../access_key';
 
 const unsplashAxios = axios.create({
   baseURL: YOUTUBE_URL
