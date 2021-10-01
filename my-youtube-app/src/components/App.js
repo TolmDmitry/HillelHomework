@@ -1,29 +1,46 @@
 import '../style/App.css';
 import SearchInput from "./Searchinput";
-// import VideoItem from './VideoItem';
 import VideoList from "./VideoList";
-import { searchVideos } from "../api/youtube";
+import { youtube } from "../api/youtube";
 import React, { Component } from 'react';
+import VideoDetails from "./VideoDetails";
 
 
 
 export default class App extends Component {
-  state = { videos: [] };
-
-  onSearchSubmit = async (query) => {
-    const response = await searchVideos(query);
-    console.log('res', response.data.items)
-    console.log('this.videos', this.state.videos)
-    this.setState({ videos: response.data.items });
-    console.log('id', this.state.videos)
+  state = {
+    videos: [],
+    selectedVideo: null
+  }
+  handleSubmit = async (termFromSearchBar) => {
+    const response = await youtube.get('/search', {
+      params: {
+        q: termFromSearchBar
+      }
+    })
+    this.setState({
+      videos: response.data.items
+    })
   };
+  handleVideoSelect = (video) => {
+    this.setState({ selectedVideo: video })
+  }
   render() {
     return (
-      <>
-        <SearchInput onSubmit={this.onSearchSubmit} />
-        <VideoList videos={this.state.videos} />
-      </>
-    );
+      <div className='ui-container' style={{ marginTop: '1em' }}>
+        <SearchInput handleFormSubmit={this.handleSubmit} />
+        <div className='ui-grid'>
+          <div className="ui-row">
+            <div className="eleven-wide-column">
+              <VideoDetails video={this.state.selectedVideo} />
+            </div>
+            <div className="five-wide-column">
+              <VideoList handleVideoSelect={this.handleVideoSelect} videos={this.state.videos} />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
