@@ -12,11 +12,7 @@ class VideoList extends Component {
         />
       );
     });
-    return (
-      <>
-        <div className="ui-relaxed-divided-list">{renderedVideos}</div>
-      </>
-    );
+    return <div className="ui-relaxed-divided-list">{renderedVideos}</div>;
   }
 }
 export default VideoList;
