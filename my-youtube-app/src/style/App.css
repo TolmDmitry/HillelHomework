@@ -1,0 +1,51 @@
+.video-item {
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer;
+  padding: 2%;
+  border: 1px solid rgb(48, 80, 162);
+}
+
+.video-item.item img {
+  max-width: 200px;
+  max-height: 250px;
+}
+.field input {
+  border: 2px solid #cccccc;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  outline: none;
+  height: 24px;
+  color: #8a8888;
+  font-size: 20px;
+  font-family: Tahoma;
+}
+.eleven-wide-column {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 50%;
+}
+.ui-row {
+  display: flex;
+}
+.five-wide-column {
+  width: 57%;
+}
+.content {
+  padding-left: 10px;
+}
+.ui-embed {
+  margin-top: 20px;
+  height: 460px;
+}
+iframe {
+  height: 90%;
+  width: 90%;
+}
+
