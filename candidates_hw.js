@@ -1,4 +1,4 @@
-const condidateArr = [
+export const condidateArr = [
     {
         "_id": "5e216bc9a6059760578aefa4",
         "index": 0,
@@ -4761,7 +4761,7 @@ console.log('TASK 1:', arr) /// ['Vasya', 'Alexey']
 
 class Candidate {
     constructor(obj) {
-        this.obj = obj;
+        this.obj = Object.assign(this, obj);
     }
     state() {
         return this.obj.address.split(',')[2]
@@ -4775,7 +4775,7 @@ console.log('TASK 2:', candidate.state()) /// Colorado
 //Если фирмы повторяются в массиве, то удалить дубликаты.
 
 function getCompanyNames() {
-    return condidateArr.map(elem => elem.company)
+    return Array.from(new Set(condidateArr.map(elem => elem.company)));
 }
 console.log('TASK 3:', getCompanyNames()) /// [""EZENT, "JASPER" ... ]
 
@@ -4790,7 +4790,7 @@ console.log('TASK 4:', getUsersByYear(2017)) /// ["5e216bc9cab1bd9dbae25637", "5
 // Смотрим свойство greeting, там указано это количество в строке. Вам надо достать это число из строки и сверять с параметром вашей функции.
 
 function getCandidatesByUnreadMsg(number) {
-    return condidateArr.filter(elem => +elem.greeting.split(' ')[5] === number).map(elem => new Candidate(elem))
+    return condidateArr.filter(elem => +elem.greeting.match(/\d+/) === number).map(elem => new Candidate(elem))
 }
 console.log('TASK 5:', getCandidatesByUnreadMsg(8)) /// [Candidate, Candidate ...]
 
